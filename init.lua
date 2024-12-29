@@ -161,7 +161,9 @@ vim.o.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 10
-
+-- set text width to wrap on column marker line
+vim.opt.wrap = true
+vim.opt.textwidth = 100
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
@@ -243,6 +245,16 @@ end
 ---@type vim.Option
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
+
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+  pattern = { 'bitbake*' },
+  callback = function()
+    vim.lsp.start {
+      name = 'bitbake',
+      cmd = { 'language-server-bitbake', '--stdio' },
+    }
+  end,
+})
 
 -- [[ Configure and install plugins ]]
 --
@@ -711,6 +723,7 @@ require('lazy').setup(
       local servers = {
         -- cmake = {},
         clangd = {},
+        -- bitbake_ls = {},
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
