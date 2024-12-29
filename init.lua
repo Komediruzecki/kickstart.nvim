@@ -158,7 +158,9 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
-
+-- set text width to wrap on column marker line
+vim.opt.wrap = true
+vim.opt.textwidth = 100
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -219,6 +221,16 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
+
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+  pattern = { 'bitbake*' },
+  callback = function()
+    vim.lsp.start {
+      name = 'bitbake',
+      cmd = { 'language-server-bitbake', '--stdio' },
+    }
+  end,
+})
 
 -- [[ Configure and install plugins ]]
 --
@@ -620,6 +632,7 @@ require('lazy').setup({
       local servers = {
         -- cmake = {},
         clangd = {},
+        -- bitbake_ls = {},
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
