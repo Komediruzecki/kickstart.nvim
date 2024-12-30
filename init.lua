@@ -178,6 +178,8 @@ vim.o.confirm = true
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Extra keymaps
+vim.keymap.set('n', '<leader>e', '<Cmd>Neotree<CR>')
 vim.keymap.set('i', '<C-c>', '<Esc>')
 vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 -- Diagnostic keymaps
@@ -931,7 +933,7 @@ require('lazy').setup({
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
+      -- require('mini.ai').setup { n_lines = 500}
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
