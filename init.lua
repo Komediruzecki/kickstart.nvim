@@ -689,6 +689,8 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local mason_packages = vim.fn.stdpath 'data' .. '/mason/packages'
+      local volar_path = mason_packages .. '/vue-language-server/node_modules/@vue/language-server'
       local servers = {
         -- cmake = {},
         clangd = {},
@@ -702,7 +704,82 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        volar = {
+          -- NOTE: Uncomment to enable volar in file types other than vue.
+          -- (Similar to Takeover Mode)
+
+          -- filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact", "json" },
+
+          -- NOTE: Uncomment to restrict Volar to only Vue/Nuxt projects. This will enable Volar to work alongside other language servers (tsserver).
+
+          -- root_dir = require("lspconfig").util.root_pattern(
+          --   "vue.config.js",
+          --   "vue.config.ts",
+          --   "nuxt.config.js",
+          --   "nuxt.config.ts"
+          -- ),
+          init_options = {
+            vue = {
+              hybridMode = false,
+            },
+            -- NOTE: This might not be needed. Uncomment if you encounter issues.
+
+            -- typescript = {
+            --   tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+            -- },
+          },
+          settings = {
+            typescript = {
+              inlayHints = {
+                enumMemberValues = {
+                  enabled = true,
+                },
+                functionLikeReturnTypes = {
+                  enabled = true,
+                },
+                propertyDeclarationTypes = {
+                  enabled = true,
+                },
+                parameterTypes = {
+                  enabled = true,
+                  suppressWhenArgumentMatchesName = true,
+                },
+                variableTypes = {
+                  enabled = true,
+                },
+              },
+            },
+          },
+        },
+        ts_ls = {
+          -- NOTE: To enable hybridMode, change HybrideMode to true above and uncomment the following filetypes block.
+          -- WARN: THIS MAY CAUSE HIGHLIGHTING ISSUES WITHIN THE TEMPLATE SCOPE WHEN TSSERVER ATTACHES TO VUE FILES
+
+          -- filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+          init_options = {
+            plugins = {
+              {
+                name = '@vue/typescript-plugin',
+                location = volar_path,
+                languages = { 'vue' },
+              },
+            },
+          },
+          settings = {
+            typescript = {
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+          },
+        },
         --
 
         lua_ls = {
@@ -736,6 +813,7 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
+        'vue-language-server',
         'stylua', -- Used to format Lua code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
