@@ -997,6 +997,13 @@ require('lazy').setup({
       vim.cmd.hi 'ColorColumn ctermbg=0 guibg=#393B40'
       -- vim.cmd.hi 'Comment gui=none'
     end,
+    opts = {
+      transparent = false,
+      styles = {
+        sidebars = 'transparent',
+        floats = 'transparent',
+      },
+    },
   },
 
   -- Highlight todo, notes, etc in comments
