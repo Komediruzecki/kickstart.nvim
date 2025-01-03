@@ -161,6 +161,7 @@ vim.opt.scrolloff = 10
 -- set text width to wrap on column marker line
 vim.opt.wrap = true
 vim.opt.textwidth = 100
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -948,6 +949,13 @@ require('lazy').setup({
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
+    opts = {
+      transparent = false,
+      styles = {
+        sidebars = 'transparent',
+        floats = 'transparent',
+      },
+    },
   },
 
   -- Highlight todo, notes, etc in comments
