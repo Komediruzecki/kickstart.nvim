@@ -163,9 +163,15 @@ vim.o.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 10
+
+-- Set tab and indents
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
 -- set text width to wrap on column marker line
-vim.opt.wrap = true
-vim.opt.textwidth = 100
+vim.o.wrap = true
+vim.o.textwidth = 100
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
@@ -476,7 +482,7 @@ require('lazy').setup({
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
+        builtin.find_files { cwd = vim.fn.stdpath 'config', follow = true }
       end, { desc = '[S]earch [N]eovim files' })
     end,
   },
