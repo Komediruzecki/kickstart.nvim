@@ -185,7 +185,7 @@ vim.o.confirm = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Extra keymaps
-vim.keymap.set('n', '<leader>e', '<Cmd>Neotree<CR>')
+vim.keymap.set('n', '<leader>e', '<Cmd>Neotree<CR>', { desc = 'Neotree toggle' })
 vim.keymap.set('i', '<C-c>', '<Esc>')
 vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 -- Diagnostic keymaps
@@ -880,6 +880,7 @@ require('lazy').setup({
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        css = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
