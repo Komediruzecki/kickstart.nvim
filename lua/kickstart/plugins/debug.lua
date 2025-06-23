@@ -165,7 +165,7 @@ return {
     }
     dap.adapters.lldb = {
       type = 'executable',
-      command = '/usr/bin/lldb-dap-18', -- adjust as needed, must be absolute path
+      command = '/usr/bin/lldb-dap-19', -- adjust as needed, must be absolute path
       name = 'lldb',
     }
     --[[    dap.configurations.cpp = {

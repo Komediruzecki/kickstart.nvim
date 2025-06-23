@@ -249,15 +249,16 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
-vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-  pattern = { 'bitbake*' },
-  callback = function()
-    vim.lsp.start {
-      name = 'bitbake',
-      cmd = { 'language-server-bitbake', '--stdio' },
-    }
-  end,
-})
+-- when bitbake development occurs
+-- vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+--   pattern = { 'bitbake*' },
+--   callback = function()
+--     vim.lsp.start {
+--       name = 'bitbake',
+--       cmd = { 'language-server-bitbake', '--stdio' },
+--     }
+--   end,
+-- })
 
 -- [[ Configure and install plugins ]]
 --
@@ -603,11 +604,7 @@ require('lazy').setup({
           ---@param bufnr? integer some lsp support methods only in specific files
           ---@return boolean
           local function client_supports_method(client, method, bufnr)
-            if vim.fn.has 'nvim-0.11' == 1 then
-              return client:supports_method(method, bufnr)
-            else
-              return client.supports_method(method, { bufnr = bufnr })
-            end
+            return client:supports_method(method, bufnr)
           end
 
           -- The following two autocommands are used to highlight references of the
@@ -710,53 +707,53 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        volar = {
-          -- NOTE: Uncomment to enable volar in file types other than vue.
-          -- (Similar to Takeover Mode)
-
-          -- filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact", "json" },
-
-          -- NOTE: Uncomment to restrict Volar to only Vue/Nuxt projects. This will enable Volar to work alongside other language servers (tsserver).
-
-          -- root_dir = require("lspconfig").util.root_pattern(
-          --   "vue.config.js",
-          --   "vue.config.ts",
-          --   "nuxt.config.js",
-          --   "nuxt.config.ts"
-          -- ),
-          init_options = {
-            vue = {
-              hybridMode = false,
-            },
-            -- NOTE: This might not be needed. Uncomment if you encounter issues.
-
-            -- typescript = {
-            --   tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
-            -- },
-          },
-          settings = {
-            typescript = {
-              inlayHints = {
-                enumMemberValues = {
-                  enabled = true,
-                },
-                functionLikeReturnTypes = {
-                  enabled = true,
-                },
-                propertyDeclarationTypes = {
-                  enabled = true,
-                },
-                parameterTypes = {
-                  enabled = true,
-                  suppressWhenArgumentMatchesName = true,
-                },
-                variableTypes = {
-                  enabled = true,
-                },
-              },
-            },
-          },
-        },
+        -- volar = {
+        --   -- NOTE: Uncomment to enable volar in file types other than vue.
+        --   -- (Similar to Takeover Mode)
+        --
+        --   -- filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact", "json" },
+        --
+        --   -- NOTE: Uncomment to restrict Volar to only Vue/Nuxt projects. This will enable Volar to work alongside other language servers (tsserver).
+        --
+        --   -- root_dir = require("lspconfig").util.root_pattern(
+        --   --   "vue.config.js",
+        --   --   "vue.config.ts",
+        --   --   "nuxt.config.js",
+        --   --   "nuxt.config.ts"
+        --   -- ),
+        --   init_options = {
+        --     vue = {
+        --       hybridMode = false,
+        --     },
+        --     -- NOTE: This might not be needed. Uncomment if you encounter issues.
+        --
+        --     -- typescript = {
+        --     --   tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+        --     -- },
+        --   },
+        --   settings = {
+        --     typescript = {
+        --       inlayHints = {
+        --         enumMemberValues = {
+        --           enabled = true,
+        --         },
+        --         functionLikeReturnTypes = {
+        --           enabled = true,
+        --         },
+        --         propertyDeclarationTypes = {
+        --           enabled = true,
+        --         },
+        --         parameterTypes = {
+        --           enabled = true,
+        --           suppressWhenArgumentMatchesName = true,
+        --         },
+        --         variableTypes = {
+        --           enabled = true,
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
         ts_ls = {
           -- NOTE: To enable hybridMode, change HybrideMode to true above and uncomment the following filetypes block.
           -- WARN: THIS MAY CAUSE HIGHLIGHTING ISSUES WITHIN THE TEMPLATE SCOPE WHEN TSSERVER ATTACHES TO VUE FILES
@@ -1011,7 +1008,7 @@ require('lazy').setup({
       transparent = false,
       styles = {
         sidebars = 'transparent',
-        floats = 'transparent',
+        floats = 'dark',
       },
     },
   },
