@@ -177,6 +177,23 @@ vim.o.textwidth = 100
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- ======================================
+-- Folding Setup (Kickstart Compatible)
+-- ======================================
+
+-- Basic folding options
+-- vim.o.foldcolumn = '1' -- Show fold column
+vim.o.foldlevel = 99 -- Expand all by default
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true -- Enable folding
+
+-- Use Treesitter as default fallback
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+
+-- Optional: make folds prettier
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
