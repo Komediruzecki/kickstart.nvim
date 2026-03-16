@@ -30,7 +30,8 @@ return {
       console = 'integratedTerminal',
     },
     cmake_executor = { -- executor to use
-      name = 'quickfix', -- name of the executor
+      -- 'quickfix' previously
+      name = 'terminal', -- name of the executor
       opts = {}, -- the options the executor will get, possible values depend on the executor type. See `default_opts` for possible values.
       default_opts = { -- a list of default and possible values for executors
         quickfix = {
@@ -38,7 +39,7 @@ return {
           position = 'belowright', -- "vertical", "horizontal", "leftabove", "aboveleft", "rightbelow", "belowright", "topleft", "botright", use `:h vertical` for example to see help on them
           size = 10,
           encoding = 'utf-8', -- if encoding is not "utf-8", it will be converted to "utf-8" using `vim.fn.iconv`
-          auto_close_when_success = true, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
+          auto_close_when_success = false, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
         },
         toggleterm = {
           direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float'
