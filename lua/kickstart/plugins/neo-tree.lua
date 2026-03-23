@@ -38,10 +38,24 @@ return {
       window = {
         mappings = {
           ['\\'] = 'close_window',
+          ['<C-o>'] = 'open_containing_dir',
           ['<C-A-o>'] = 'open_external',
         },
       },
       commands = {
+        open_containing_dir = function(state)
+          local node = state.tree:get_node()
+          local path = node:get_id()
+          local dir = vim.fn.fnamemodify(path, ':h')
+
+          if vim.fn.has 'mac' == 1 then
+            vim.fn.jobstart({ 'open', dir }, { detach = true })
+          elseif vim.fn.has 'unix' == 1 then
+            vim.fn.jobstart({ 'xdg-open', dir }, { detach = true })
+          elseif vim.fn.has 'win32' == 1 then
+            vim.fn.jobstart({ 'start', dir }, { detach = true })
+          end
+        end,
         open_external = function(state)
           local node = state.tree:get_node()
           local path = node:get_id()
