@@ -211,6 +211,7 @@ vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('n', '<leader>Q', '<cmd>copen<CR>', { desc = 'Open global quickfix (build) list' })
 vim.keymap.set('n', '<leader>cb', '<cmd>CMakeBuild<CR>', { desc = 'Build CMake project' })
+vim.keymap.set('n', '<leader>cr', '<cmd>CMakeRun<CR>', { desc = 'Run CMake project' })
 -- Diagnostic Config & Keymaps
 -- See :help vim.diagnostic.Opts
 vim.diagnostic.config {
