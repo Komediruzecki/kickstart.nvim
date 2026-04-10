@@ -649,13 +649,6 @@ require('lazy').setup({
           --  the definition of its *type*, not where it was *defined*.
           map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
-          -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
-          ---@param client vim.lsp.Client
-          ---@param method vim.lsp.protocol.Method
-          ---@param bufnr? integer some lsp support methods only in specific files
-          ---@return boolean
-          local function client_supports_method(client, method, bufnr) return client:supports_method(method, bufnr) end
-
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
@@ -881,6 +874,15 @@ require('lazy').setup({
           }
         end
       end,
+      -- formatters = {
+      --   prettierd = {
+      --     -- 'condition' ensures it only runs if the binary exists
+      --     args = { '--prose-wrap', 'always', '--print-width', '80', '$FILENAME' },
+      --   },
+      --   prettier = {
+      --     args = { '--prose-wrap', 'always', '--print-width', '80', '$FILENAME' },
+      --   },
+      -- },
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
@@ -892,6 +894,7 @@ require('lazy').setup({
         typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
         vue = { 'prettierd', 'prettier', stop_after_first = true },
         css = { 'prettierd', 'prettier', stop_after_first = true },
+        markdown = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -1006,21 +1009,20 @@ require('lazy').setup({
           comments = { italic = false }, -- Disable italics in comments
         },
       }
-
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'tokyonight-night'
       vim.cmd.hi 'ColorColumn ctermbg=0 guibg=#393B40'
       -- vim.cmd.hi 'Comment gui=none'
-      opts = {
-        transparent = false,
-        styles = {
-          sidebars = 'transparent',
-          floats = 'dark',
-        },
-      }
     end,
+    opts = {
+      transparent = false,
+      styles = {
+        sidebars = 'transparent',
+        floats = 'dark',
+      },
+    },
   },
 
   -- Highlight todo, notes, etc in comments
