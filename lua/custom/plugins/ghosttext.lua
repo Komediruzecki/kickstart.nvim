@@ -3,7 +3,7 @@ return {
   lazy = false,
   build = 'bun install',
   opts = {
-    autostart = true,
+    autostart = false,
     log_level = 'debug',
   },
 }
